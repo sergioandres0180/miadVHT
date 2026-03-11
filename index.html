@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de Sueldos | Reporte Interactivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="description"
+        content="Dashboard interactivo de visualización de sueldos realizado con Looker Studio. Análisis detallado y tendencias.">
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Salary<span>Insights</span></div>
+                <div class="tagline">Master en Visualización de Datos</div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Reporte de <span class="gradient-text">Análisis de Sueldos</span></h1>
+                <p class="subtitle">Explora los datos interactivos sobre tendencias salariales y distribución
+                    profesional.</p>
+            </div>
+        </section>
+
+        <section class="dashboard-container">
+            <div class="full-container">
+                <div class="glass-card animate-fade-in">
+                    <div class="card-header">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                        <span class="window-title">Looker Studio Dashboard</span>
+                    </div>
+                    <div class="iframe-wrapper">
+                        <iframe id="looker-report"
+                            src="https://lookerstudio.google.com/embed/reporting/7e7f51ad-cd70-4d74-b4ac-f1bd0d7ae4d2/page/Y0GmC"
+                            frameborder="0" style="border:0" allowfullscreen
+                            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <h3>Detalles del Proyecto</h3>
+                    <div class="info-item">
+                        <span class="label">Fuente de datos:</span>
+                        <span class="value">Ask a Manager Survey 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Herramienta BI:</span>
+                        <span class="value">Looker Studio</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Lenguaje limpieza:</span>
+                        <span class="value">Python 3 (Jupyter Notebook)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Almacenamiento:</span>
+                        <span class="value">Google Sheets + Excel (.xlsx)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Versión del doc.:</span>
+                        <span class="value">1.0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Grupo 16. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
