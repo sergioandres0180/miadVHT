@@ -1,7 +1,4 @@
 # Git Ignore
-doc_tecnico_sueldos.docx
-limpieza_sueldos.ipynb
-sueldos_limpio2.xlsx
 .gemini/
 .agents/
 node_modules/

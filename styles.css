@@ -101,6 +101,31 @@ nav {
     align-items: center;
 }
 
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.nav-link.active {
+    border-bottom: 2px solid var(--accent);
+}
+
 .logo {
     font-family: var(--font-heading);
     font-size: 1.5rem;
@@ -268,9 +293,98 @@ footer {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Documentation Styles */
+.doc-content {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 3rem;
+    margin-bottom: 4rem;
+}
+
+.doc-section {
+    margin-bottom: 3rem;
+}
+
+.doc-section h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--separator-border);
+    padding-bottom: 0.5rem;
+}
+
+.doc-section h3 {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+    color: var(--text-main);
+}
+
+.doc-section p {
+    margin-bottom: 1.25rem;
+    color: var(--text-muted);
+}
+
+.doc-section ul {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.doc-section li {
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+}
+
+.doc-table-wrapper {
+    overflow-x: auto;
+    margin: 2rem 0;
+}
+
+.doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.doc-table th, .doc-table td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid var(--glass-border);
+}
+
+.doc-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+}
+
+.doc-table td {
+    color: var(--text-muted);
+}
+
+.doc-table tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.code-block {
+    background: #1e1e1e;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: #e6e6e6;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     h1 { font-size: 2.5rem; }
     .subtitle { font-size: 1rem; }
-    .iframe-wrapper { padding-top: 100%; } /* Square on mobile for better visibility */
+    .iframe-wrapper { padding-top: 100%; }
+    .doc-content { padding: 1.5rem; }
+    .nav-links { gap: 1rem; }
 }

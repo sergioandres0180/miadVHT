@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación Técnica | Salary Insights</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Salary<span>Insights</span></div>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Reporte</a>
+                    <a href="documentacion.html" class="nav-link active">Documentación</a>
+                </div>
+                <div class="tagline">Master en Visualización de Datos</div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Documentación <span class="gradient-text">Técnica</span></h1>
+            <p class="subtitle">Detalles del proceso ETL, arquitectura y fuentes de datos del proyecto.</p>
+        </section>
+
+        <article class="doc-content animate-fade-in">
+            <div class="doc-section">
+                <h2>1. Resumen del Proyecto</h2>
+                <p>Este proyecto consiste en un dashboard interactivo construido en Looker Studio para analizar y visualizar datos salariales de profesionales a nivel global, obtenidos a través de la encuesta anual de Ask a Manager (2021). El objetivo es facilitar la comparación de salarios por industria, país, género, nivel de educación y años de experiencia.</p>
+                <p>La arquitectura del proyecto se compone de tres etapas principales:</p>
+                <ul>
+                    <li>Extracción de datos crudos desde la encuesta pública de Ask a Manager (Google Sheets).</li>
+                    <li>Limpieza y transformación de los datos mediante un Jupyter Notebook en Python.</li>
+                    <li>Carga de los datos limpios a Google Sheets y conexión con Looker Studio para la visualización.</li>
+                </ul>
+                <p>Sitio web en producción: <a href="https://grupo16-eight.vercel.app/" style="color: var(--accent);">https://grupo16-eight.vercel.app/</a></p>
+            </div>
+
+            <div class="doc-section">
+                <h2>2. Arquitectura del Sistema</h2>
+                <p>El flujo de datos sigue una pipeline ETL (Extract, Transform, Load) simplificada:</p>
+                <div class="doc-table-wrapper">
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Etapa</th>
+                                <th>Herramienta</th>
+                                <th>Recurso</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1. Extract</td>
+                                <td>Google Sheets</td>
+                                <td>Ask a Manager Survey 2021</td>
+                                <td>Respuestas crudas de la encuesta (~28,000 filas)</td>
+                            </tr>
+                            <tr>
+                                <td>2. Transform</td>
+                                <td>Python / Jupyter</td>
+                                <td>limpieza_sueldos.ipynb</td>
+                                <td>Normalización de países, monedas, cargos. Conversión a USD/COP.</td>
+                            </tr>
+                            <tr>
+                                <td>3. Load</td>
+                                <td>Excel → Google Sheets</td>
+                                <td>sueldos_limpio2.xlsx</td>
+                                <td>Datos limpios cargados como fuente para Looker Studio</td>
+                            </tr>
+                            <tr>
+                                <td>4. Visualize</td>
+                                <td>Looker Studio</td>
+                                <td>Dashboard embebido</td>
+                                <td>Gráficos interactivos y filtros dinámicos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <h2>3. Fuentes de Datos</h2>
+                <h3>3.1 Fuente Original</h3>
+                <p>Los datos provienen de la encuesta anual de salarios publicada por el blog Ask a Manager:</p>
+                <ul>
+                    <li>Encuesta: How Much Money Do You Make? (2021)</li>
+                    <li>Datos crudos (Google Sheets): <a href="https://docs.google.com/spreadsheets/d/1IPS5dBSGtwYVbjsfbaMCYIWnOuRmJcbequohNxCyGVw" style="color: var(--accent);">Spreadsheet público Ask a Manager 2021</a></li>
+                </ul>
+                <h3>3.2 Estructura del Dataset Crudo</h3>
+                <div class="doc-table-wrapper">
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Columna original</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>What country do you work in?</td>
+                                <td>País de trabajo (texto libre, sucio)</td>
+                            </tr>
+                            <tr>
+                                <td>What industry do you work in?</td>
+                                <td>Industria o sector laboral</td>
+                            </tr>
+                            <tr>
+                                <td>Job title</td>
+                                <td>Cargo o título profesional</td>
+                            </tr>
+                            <tr>
+                                <td>What is your annual salary?</td>
+                                <td>Salario anual (moneda local)</td>
+                            </tr>
+                            <tr>
+                                <td>How much additional monetary compensation?</td>
+                                <td>Compensación adicional (bonos, horas extra)</td>
+                            </tr>
+                            <tr>
+                                <td>Please indicate the currency</td>
+                                <td>Moneda declarada por el encuestado</td>
+                            </tr>
+                            <tr>
+                                <td>How many years of professional experience?</td>
+                                <td>Años de experiencia total y en el campo</td>
+                            </tr>
+                            <tr>
+                                <td>What is your highest level of education?</td>
+                                <td>Nivel de educación completado</td>
+                            </tr>
+                            <tr>
+                                <td>What is your gender? / What is your race?</td>
+                                <td>Variables demográficas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <h2>4. Proceso de Limpieza de Datos</h2>
+                <p>El notebook <code>limpieza_sueldos.ipynb</code> ejecuta la pipeline de transformación en los siguientes pasos:</p>
+
+                <h3>4.1 Librerías Requeridas</h3>
+                <p>Instalar antes de ejecutar el notebook:</p>
+                <div class="code-block">
+                    pip install pandas numpy openpyxl thefuzz pycountry forex-python
+                </div>
+
+                <h3>4.2 Pasos del Pipeline</h3>
+                <p><strong>Paso 1 — Carga de datos:</strong> Se carga el archivo Excel crudo descargado del Google Sheets de Ask a Manager:</p>
+                <div class="code-block">
+                    df = pd.read_excel('SUELDOS PROFESIONALES.xlsx')
+                </div>
+
+                <p><strong>Paso 2 — Normalización de países (country_clean):</strong> La columna de país contiene texto libre con errores tipográficos, siglas, nombres locales y entradas irrelevantes. Se aplica una función de tres pasos:</p>
+                <ul>
+                    <li>Diccionario de mapeo manual (siglas_map): cubre siglas (US, UK, NZ, etc.) y nombres alternativos.</li>
+                    <li>Coincidencia exacta contra la lista de países de la librería <code>pycountry</code>.</li>
+                    <li>Fuzzy matching con umbral de 85% usando <code>thefuzz</code> para capturar errores ortográficos menores.</li>
+                </ul>
+                <p>Los valores que no superan el umbral se convierten en NaN y son excluidos del análisis.</p>
+
+                <p><strong>Paso 3 — Normalización de moneda (currency_clean):</strong> Se estandariza a mayúsculas y se eliminan registros con moneda 'OTHER'.</p>
+                <div class="code-block">
+                    df['currency_clean'] = df['Please indicate the currency'].str.strip().str.upper()
+                </div>
+
+                <p><strong>Paso 4 — Conversión de salarios a COP:</strong> Se obtienen tasas de cambio en tiempo real usando <code>forex_python</code> para las principales monedas. Se crean tres columnas nuevas: <code>salario_anual_COP</code>, <code>compensaciones_COP</code> y <code>total_COP</code>.</p>
+
+                <p><strong>Paso 5 — Creando nuevas columnas:</strong> Se crearon nuevas columnas para no borrar la información original:</p>
+                <div class="doc-table-wrapper">
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Información</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pais_Limpio</td>
+                                <td>Resultado de la limpieza de la columna de países.</td>
+                            </tr>
+                            <tr>
+                                <td>Ciudad_Limpia</td>
+                                <td>Resultado de la limpieza de la columna de ciudades.</td>
+                            </tr>
+                            <tr>
+                                <td>Industria_Clasificada</td>
+                                <td>Agrupación general de sectores económicos para reducir la granularidad.</td>
+                            </tr>
+                            <tr>
+                                <td>ID</td>
+                                <td>Identificador único de registro.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p><strong>Paso 6 — Normalización de la columna etnia:</strong> Se separan los datos por comas, generando nuevas filas para registros con múltiples etnias. Esto permite que en Looker Studio las agregaciones a nivel de "ID" funcionen correctamente mientras se visualizan todos los detalles de etnia.</p>
+
+                <p><strong>Paso 7 — Traducción:</strong> Proceso de traducción al español de las columnas de etnia, sexo, nivel de escolaridad e industria clasificada para un mejor entendimiento del reporte por usuarios colombianos.</p>
+
+                <p><strong>Paso 8 — Exportación:</strong> El dataframe limpio se exporta en dos formatos:</p>
+                <div class="code-block">
+                    df_clean.to_excel('sueldos_limpio2.xlsx', index=False)<br>
+                    df_clean.to_csv('sueldos_limpio.csv', index=False, encoding='utf-8-sig')
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <h2>5. ¿Cómo Agregar o Actualizar Datos?</h2>
+                <p>Para actualizar el dashboard con nuevos datos (por ejemplo, una edición posterior de la encuesta Ask a Manager), seguir este procedimiento:</p>
+                
+                <h3>5.1 Actualización desde la misma fuente</h3>
+                <ul>
+                    <li>Descargar el Google Sheet actualizado de Ask a Manager como archivo Excel (.xlsx).</li>
+                    <li>Guardar el archivo con el nombre <code>SUELDOS PROFESIONALES.xlsx</code> en la ruta que lee el notebook (Cell 1).</li>
+                    <li>Ejecutar todas las celdas del notebook <code>limpieza_sueldos.ipynb</code> de arriba a abajo.</li>
+                    <li>Verificar que no hay errores en la ejecución, especialmente en la conversión de monedas (requiere conexión a internet para <code>forex_python</code>).</li>
+                    <li>El notebook generará un nuevo archivo <code>sueldos_limpio2.xlsx</code> listo para subir.</li>
+                </ul>
+
+                <h3>5.2 Carga a Google Sheets</h3>
+                <ul>
+                    <li>Abrir el Google Sheet que sirve como fuente en Looker Studio.</li>
+                    <li>Eliminar todos los datos existentes (mantener la fila de encabezados).</li>
+                    <li>Copiar y pegar el contenido del archivo <code>sueldos_limpio2.xlsx</code> en la hoja, o usar <strong>Archivo → Importar</strong> para reemplazar los datos.</li>
+                    <li>Looker Studio se actualiza automáticamente en la próxima carga del dashboard.</li>
+                </ul>
+
+                <h3>5.3 Agregar nuevas columnas</h3>
+                <p>Si se desea agregar nuevas variables al análisis:</p>
+                <ul>
+                    <li>Agregar la transformación correspondiente en el notebook antes de la celda de renombrado (Cell 11).</li>
+                    <li>Incluir el nuevo nombre de columna en el diccionario de <code>rename()</code>.</li>
+                    <li>Volver a exportar el archivo Excel y reemplazar la fuente en Google Sheets.</li>
+                    <li>En Looker Studio, ir a <strong>Recurso → Gestionar fuentes de datos</strong> y actualizar los campos disponibles.</li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h2>6. ¿Cómo Modelar Nuevas Entradas?</h2>
+                <p>Si se desea incorporar datos de una fuente distinta (por ejemplo, otra encuesta de salarios o datos propios), seguir estas indicaciones para garantizar compatibilidad con el pipeline existente:</p>
+
+                <h3>6.1 Estructura mínima requerida</h3>
+                <p>El nuevo dataset debe contener las siguientes columnas (puede usar los nombres originales o los nombres limpios):</p>
+                <div class="doc-table-wrapper">
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Campo requerido</th>
+                                <th>Tipo</th>
+                                <th>Notas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>country (o country_clean)</td>
+                                <td>Texto</td>
+                                <td>Si está sucio, pasarlo por la función <code>limpiar_pais()</code>.</td>
+                            </tr>
+                            <tr>
+                                <td>annual_salary</td>
+                                <td>Numérico</td>
+                                <td>En moneda local. Anualizado si es por hora.</td>
+                            </tr>
+                            <tr>
+                                <td>currency_clean</td>
+                                <td>Texto (código ISO)</td>
+                                <td>USD, EUR, GBP, CAD, etc. En mayúsculas.</td>
+                            </tr>
+                            <tr>
+                                <td>Industry</td>
+                                <td>Texto</td>
+                                <td>Categoría de industria.</td>
+                            </tr>
+                            <tr>
+                                <td>job_title</td>
+                                <td>Texto</td>
+                                <td>Normalizar con <code>.str.title()</code>.</td>
+                            </tr>
+                            <tr>
+                                <td>experience_total / experience_field</td>
+                                <td>Texto categórico</td>
+                                <td>Rangos: '1-2 years', '5-7 years', etc.</td>
+                            </tr>
+                            <tr>
+                                <td>education, gender, race</td>
+                                <td>Texto categórico</td>
+                                <td>Opcionales para análisis demográfico.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>6.2 Reutilización del pipeline</h3>
+                <p>Las funciones del notebook son modulares y reutilizables:</p>
+                <ul>
+                    <li><code>limpiar_pais(valor)</code>: recibe un string y retorna el nombre estandarizado del país (o NaN si no reconoce).</li>
+                    <li><code>convertir_a_usd(row, col_salario)</code>: convierte el salario de la fila a USD usando las tasas precargadas en <code>tasas_a_usd</code>.</li>
+                </ul>
+                <p>Para adaptar el notebook a una nueva fuente:</p>
+                <ul>
+                    <li>Cambiar la ruta del archivo en Cell 1.</li>
+                    <li>Ajustar los nombres de columna en los parámetros de las funciones <code>apply()</code>.</li>
+                    <li>Actualizar el diccionario <code>rename()</code> con los nuevos nombres de columna si cambian.</li>
+                </ul>
+
+                <h3>6.3 Agregar nuevas monedas</h3>
+                <p>Si la nueva fuente incluye monedas no contempladas actualmente, agregar la tasa al diccionario en Cell 7:</p>
+                <div class="code-block">
+                    tasas_a_usd['COP'] = c.get_rate('COP', 'USD')   # Ejemplo: Peso colombiano
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <h2>7. ¿Cómo Exportar y Conectar con Visualizaciones?</h2>
+                
+                <h3>7.1 Exportación del archivo limpio</h3>
+                <p>El notebook exporta automáticamente el dataset procesado en dos formatos al finalizar la ejecución:</p>
+                <div class="doc-table-wrapper">
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Archivo</th>
+                                <th>Formato</th>
+                                <th>Uso recomendado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>sueldos_limpio2.xlsx</td>
+                                <td>Excel (.xlsx)</td>
+                                <td>Carga a Google Sheets como fuente de Looker Studio</td>
+                            </tr>
+                            <tr>
+                                <td>sueldos_limpio.csv</td>
+                                <td>CSV UTF-8 BOM</td>
+                                <td>Compatible con Power BI, Tableau, y otras herramientas BI</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>7.2 Conexión con Looker Studio</h3>
+                <p>El flujo actual usa Google Sheets como intermediario entre Python y Looker Studio:</p>
+                <ul>
+                    <li>Subir el archivo <code>sueldos_limpio2.xlsx</code> a Google Drive.</li>
+                    <li>Abrirlo como Google Sheet (clic derecho → Abrir con → Google Sheets).</li>
+                    <li>En Looker Studio, ir a <strong>Recurso → Gestionar fuentes de datos → Editar fuente</strong>.</li>
+                    <li>Seleccionar el Google Sheet actualizado como nueva fuente y confirmar el mapeo de campos.</li>
+                    <li>Verificar que los nombres de columna coincidan exactamente con los utilizados en los gráficos del dashboard.</li>
+                </ul>
+
+                <h3>Python / Análisis adicional</h3>
+                <div class="code-block">
+                    import pandas as pd<br>
+                    df = pd.read_excel('sueldos_limpio2.xlsx')<br>
+                    # o desde CSV:<br>
+                    # df = pd.read_csv('sueldos_limpio.csv', encoding='utf-8-sig')
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <h2>8. Estructura de Archivos del Proyecto</h2>
+                <div class="doc-table-wrapper">
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Archivo</th>
+                                <th>Propósito</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SUELDOS PROFESIONALES.xlsx</td>
+                                <td>Datos crudos descargados del Google Sheet de Ask a Manager.</td>
+                            </tr>
+                            <tr>
+                                <td><a href="limpieza_sueldos.ipynb" download style="color: var(--accent); text-decoration: underline;">limpieza_sueldos.ipynb</a></td>
+                                <td>Notebook de limpieza y transformación. ENTRADA: datos crudos. SALIDA: datos limpios.</td>
+                            </tr>
+                            <tr>
+                                <td><a href="sueldos_limpio2.xlsx" download style="color: var(--accent); text-decoration: underline;">sueldos_limpio2.xlsx</a></td>
+                                <td>Dataset final limpio. Fuente de datos para Looker Studio vía Google Sheets.</td>
+                            </tr>
+                            <tr>
+                                <td>sueldos_limpio.csv</td>
+                                <td>Copia en CSV del dataset limpio (respaldo y compatibilidad con otras herramientas).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <h2>9. Consideraciones Técnicas y Advertencias</h2>
+                <ul>
+                    <li><strong>Dependencia externa: Tasas de cambio dinámicas</strong><br>
+                    La función <code>get_rate()</code> de <code>forex_python</code> requiere conexión a internet. Si falla, precargar las tasas manualmente en el diccionario <code>tasas_a_usd</code> como valores fijos.</li>
+                    
+                    <li><strong>Compatibilidad futura: Cambios en la encuesta</strong><br>
+                    Si Ask a Manager modifica los nombres de las columnas en ediciones futuras, actualizar el diccionario <code>rename()</code> en la Cell 11 del notebook.</li>
+                    
+                    <li><strong>Ajuste de parámetros: Umbral de fuzzy matching</strong><br>
+                    El umbral de 85% en <code>limpiar_pais()</code> puede ajustarse. Un umbral menor incluye más países pero puede generar falsos positivos. Un umbral mayor es más estricto.</li>
+                    
+                    <li><strong>Criterio estadístico: Umbral de agrupación racial</strong><br>
+                    El umbral de 60 ocurrencias para agrupar razas en 'Other' puede modificarse según el tamaño del nuevo dataset.</li>
+                    
+                    <li><strong>Filtrado aplicado: Registros excluidos</strong><br>
+                    Se excluyen del análisis todos los registros con moneda 'OTHER' y aquellos donde el país no pudo ser identificado. Revisar el output de la Cell 6 para conocer el impacto de estos filtros.</li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h2>10. Publicación y Despliegue</h2>
+                <p>El sitio está desplegado en <strong>Vercel</strong>, permitiendo actualizaciones automáticas desde GitHub.</p>
+                <ul>
+                    <li>Repositorio: <a href="https://github.com/sergioandres0180/miadVHT" style="color: var(--accent);">GitHub Repo</a></li>
+                    <li>Producción: <a href="https://grupo16-eight.vercel.app/" style="color: var(--accent);">Vercel App</a></li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h2>11. Referencias</h2>
+                <ul>
+                    <li>Blog Ask a Manager: <a href="https://www.askamanager.org/" style="color: var(--accent);">askamanager.org</a></li>
+                    <li>Librerías Python: Pandas, NumPy, Openpyxl, Pycountry, TheFuzz, Forex-python.</li>
+                </ul>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Grupo 16. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
